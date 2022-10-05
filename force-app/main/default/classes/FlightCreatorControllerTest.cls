@@ -69,6 +69,7 @@ public with sharing class FlightCreatorControllerTest {
             LanguageLocaleKey = 'en_US'
         );
         insert user;
+        
         List<Airport__c> airports = [SELECT Id, IATA_Code__c FROM Airport__c ORDER BY Name DESC];
         Flight_Factory resultFlight;
         Boolean exceptionThrown = false;
