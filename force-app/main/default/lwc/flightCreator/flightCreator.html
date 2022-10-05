@@ -1,0 +1,42 @@
+<template>
+    <div class="background-white">
+        <div class="form">
+            <lightning-input
+                name="departureAirport"
+                label="Departure Airport"
+                value={chosenDepartureAirport}
+                onchange={handleChange}
+                placeholder="Departure Airport"
+                type="text"
+                max-length="3"
+                min-length="3"
+                required></lightning-input>
+            <lightning-input
+                name="arrivalAirport"
+                label="Arrival Airport"
+                value={chosenArrivalAirport}
+                onchange={handleChange}
+                placeholder="Arrival Airport"
+                type="text"
+                max-length="3"
+                required></lightning-input>
+            <lightning-button 
+                label="Create a flight" 
+                title="Create a flight" 
+                onclick={handleFlightCreation} 
+                class="button">
+            </lightning-button>
+        </div>
+        <template if:true={isResult}>
+            <div class="slds-p-top_medium">
+                    {label.createdFlight}: {name}
+                <div class="route">
+                    {label.departureAirport}: {departureAirportName}
+                    &nbsp;
+                    {label.arrivalAirport}: {arrivalAirportName}
+                </div>
+                    {label.flightDistance}: {distance}&nbsp;{label.distanceUnit}
+            </div>
+        </template>
+    </div>
+</template>
