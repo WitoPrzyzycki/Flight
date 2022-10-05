@@ -43,7 +43,7 @@ export default class FlightCreator extends LightningElement {
         }
     }
     handleFlightCreation() {
-        if (this.chosenDepartureAirport.toUpperCase() && this.chosenArrivalAirport.toUpperCase() && this.chosenDepartureAirport.toUpperCase() === this.chosenArrivalAirport.toUpperCase()) {
+        if (this.chosenDepartureAirport && this.chosenArrivalAirport && this.chosenDepartureAirport.toUpperCase() === this.chosenArrivalAirport.toUpperCase()) {
             this.showToast(this.label.makeSureBeforeSave, 'error');
         } else if (this.validateInputs()) {
             calculateAndSaveNewFlight({departureAirportIATA :this.chosenDepartureAirport,arrivalAirportIATA :this.chosenArrivalAirport})
