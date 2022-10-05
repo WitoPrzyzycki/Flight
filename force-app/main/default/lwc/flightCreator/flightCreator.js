@@ -57,7 +57,7 @@ export default class FlightCreator extends LightningElement {
     }
     validateInputs() {
         let isValid = true;
-        this.template.querySelectorAll('lightning-combobox').forEach((field) => {
+        this.template.querySelectorAll('lightning-input').forEach((field) => {
             if (!field.reportValidity()) {
                 isValid = field.reportValidity();
             } 
