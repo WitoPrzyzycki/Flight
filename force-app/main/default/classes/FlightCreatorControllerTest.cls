@@ -22,10 +22,10 @@ public with sharing class FlightCreatorControllerTest {
 
     @isTest
     public static void calculateAndSaveNewFlightTest() {
-        List<Airport__c> airports = [SELECT Id, Location__Latitude__s, Location__Longitude__s, Name FROM Airport__c ORDER BY Name DESC];
+        List<Airport__c> airports = [SELECT Id, Location__Latitude__s, Location__Longitude__s, Name,IATA_Code__c FROM Airport__c ORDER BY Name DESC];
 
         Test.startTest();
-        Flight_Factory resultFlight = FlightCreatorController.calculateAndSaveNewFlight(airports);
+        Flight_Factory resultFlight = FlightCreatorController.calculateAndSaveNewFlight(airports[0].IATA_Code__c, airports[1].IATA_Code__c);
         Test.stopTest();
 
         System.assert(resultFlight.Name == 'Łódź-Radom');
@@ -34,13 +34,13 @@ public with sharing class FlightCreatorControllerTest {
     }
     @isTest
     public static void calculateAndSaveFlightAirportNullErrorTest() {
-        List<Airport__c> airports = [SELECT Id FROM Airport__c ORDER BY Name DESC LIMIT 1];
+        List<Airport__c> airports = [SELECT Id, IATA_Code__c FROM Airport__c ORDER BY Name DESC LIMIT 1];
         Flight_Factory resultFlight;
         Boolean exceptionThrown = false;
 
         Test.startTest();
         try {
-            resultFlight = FlightCreatorController.calculateAndSaveNewFlight(airports);
+            resultFlight = FlightCreatorController.calculateAndSaveNewFlight(airports[0].IATA_Code__c, airports[1].IATA_Code__c);
         } catch(Exception e) {
             exceptionThrown = true;
         }
@@ -69,14 +69,14 @@ public with sharing class FlightCreatorControllerTest {
             LanguageLocaleKey = 'en_US'
         );
         insert user;
-        List<Airport__c> airports = [SELECT Id FROM Airport__c ORDER BY Name DESC];
+        List<Airport__c> airports = [SELECT Id, IATA_Code__c FROM Airport__c ORDER BY Name DESC];
         Flight_Factory resultFlight;
         Boolean exceptionThrown = false;
 
         Test.startTest();
         System.runAs(user) {
             try {
-                resultFlight = FlightCreatorController.calculateAndSaveNewFlight(airports);
+                resultFlight = FlightCreatorController.calculateAndSaveNewFlight(airports[0].IATA_Code__c, airports[1].IATA_Code__c);
             } catch(Exception e) {
                 System.debug(e.getMessage());
                 exceptionThrown = true;
